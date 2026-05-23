@@ -1,14 +1,3 @@
-"""
-tts/tts_engine.py
-Wraps edge-tts for multilingual TTS.
-
-Key design decisions:
-  • edge-tts is natively async — no thread-pool needed.
-  • TTS is generated ONCE per language per audio chunk, then
-    broadcast to ALL listeners of that language (no duplication).
-  • Audio is returned as mp3 bytes.
-"""
-
 import asyncio
 import io
 import logging

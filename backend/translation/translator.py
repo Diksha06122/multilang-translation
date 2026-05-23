@@ -1,12 +1,3 @@
-"""
-translation/translator.py
-Uses deep-translator (GoogleTranslator backend) — a stable, maintained
-replacement for the broken googletrans library.
-
-Translation is done concurrently across all target languages using
-asyncio.gather() to minimise latency.
-"""
-
 import asyncio
 import logging
 from deep_translator import GoogleTranslator
@@ -14,8 +5,6 @@ from config import SUPPORTED_LANGUAGES
 
 logger = logging.getLogger(__name__)
 
-# Language codes supported by deep-translator / Google Translate
-# These match the keys in config.SUPPORTED_LANGUAGES
 _LANG_MAP: dict[str, str] = {
     "hi": "hi",
     "en": "en",
@@ -36,10 +25,7 @@ class Translator:
         text: str,
         target_languages: set[str],
     ) -> dict[str, str]:
-        """
-        Translate *text* into every language in *target_languages* concurrently.
-        Returns {"hi": "...", "ta": "...", "en": "..."}
-        """
+
         if not text.strip():
             return {}
 

@@ -1,8 +1,3 @@
-"""
-room_manager.py
-Manages rooms, speakers, listeners, and broadcast logic.
-All state is in-memory (single-process MVP).
-"""
 
 import uuid
 import asyncio
@@ -18,7 +13,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ListenerInfo:
     websocket: WebSocket
-    language: str          # e.g. "hi", "ta", "en"
+    language: str        
     listener_id: str
 
 

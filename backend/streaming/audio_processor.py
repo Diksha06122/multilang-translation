@@ -1,15 +1,3 @@
-"""
-streaming/audio_processor.py
-
-Orchestrates the full pipeline per room:
-    audio chunks → buffer → ASR → translate → [subtitle broadcast] → TTS → [audio broadcast]
-
-Design:
-  • Buffers N chunks (default 3 × ~1 s) before running ASR.
-  • Subtitles are sent BEFORE TTS starts (subtitle-first architecture).
-  • TTS is generated once per language per pipeline run.
-  • Uses asyncio.create_task() so buffering never blocks WebSocket receive.
-"""
 
 import asyncio
 import logging

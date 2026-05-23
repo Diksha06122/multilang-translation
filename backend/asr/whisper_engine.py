@@ -1,8 +1,3 @@
-"""
-asr/whisper_engine.py
-Wraps faster-whisper for CPU-friendly transcription.
-Runs inference in a thread-pool to avoid blocking the event loop.
-"""
 
 import asyncio
 import os
@@ -28,11 +23,7 @@ class WhisperEngine:
     # ── Public API ────────────────────────────────────────────────
 
     async def transcribe(self, audio_bytes: bytes) -> dict:
-        """
-        Accepts raw audio bytes (webm / opus / wav).
-        Returns {"text": "...", "language": "hi", "confidence": 0.95}
-        Runs synchronous Whisper in a thread-pool so it never blocks the loop.
-        """
+
         return await asyncio.to_thread(self._sync_transcribe, audio_bytes)
 
     # ── Internal ──────────────────────────────────────────────────
