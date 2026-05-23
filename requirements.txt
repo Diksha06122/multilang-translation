@@ -1,0 +1,22 @@
+# ── Core backend ──────────────────────────────────────────────────
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9
+websockets>=12.0
+aiofiles>=23.2.1
+
+# ── AI / ML ───────────────────────────────────────────────────────
+faster-whisper>=1.0.1          # ASR  (CPU int8)
+numpy>=1.26.0
+
+# ── Translation ───────────────────────────────────────────────────
+deep-translator>=1.11.4        # Stable Google Translate wrapper
+
+# ── TTS ───────────────────────────────────────────────────────────
+edge-tts>=6.1.9                # Microsoft Edge TTS (async, free)
+
+# ── Audio processing ──────────────────────────────────────────────
+# NOTE: ffmpeg must be installed separately on the system.
+# Ubuntu/Debian: sudo apt install ffmpeg
+# macOS:         brew install ffmpeg
+# Windows:       https://ffmpeg.org/download.html

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Listener — Live Translation</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎧 Listener</h1>
+    <p class="subtitle">Join a room and receive live translations.</p>
+
+    <!-- Step 1: Join -->
+    <div id="step-join" class="card">
+      <label for="inp-code">Room Code</label>
+      <input id="inp-code" type="text" placeholder="e.g. A3F8C2D1" maxlength="8" />
+
+      <label for="sel-lang">Your Language</label>
+      <select id="sel-lang">
+        <!-- Populated by JS from /languages API -->
+        <option value="en">English</option>
+      </select>
+
+      <button id="btn-join" class="btn btn-primary">Join Room</button>
+    </div>
+
+    <!-- Step 2: Live subtitles + audio -->
+    <div id="step-live" class="card hidden">
+      <div class="status-row">
+        <span class="dot connected" id="status-dot"></span>
+        <span id="status-text">Connected</span>
+      </div>
+
+      <div id="subtitle-box">
+        <p class="subtitle-placeholder">Waiting for speaker…</p>
+      </div>
+
+      <div class="audio-controls">
+        <label>
+          <input type="checkbox" id="chk-audio" checked />
+          Play translated audio
+        </label>
+        <label>
+          Volume
+          <input type="range" id="vol-slider" min="0" max="1" step="0.05" value="1" />
+        </label>
+      </div>
+
+      <button id="btn-leave" class="btn btn-danger">Leave Room</button>
+    </div>
+  </div>
+
+  <script src="/static/listener.js"></script>
+</body>
+</html>

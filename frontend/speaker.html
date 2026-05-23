@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speaker — Live Translation</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎙️ Speaker</h1>
+    <p class="subtitle">Create a room and start speaking live.</p>
+
+    <!-- Step 1: Create Room -->
+    <div id="step-create" class="card">
+      <button id="btn-create" class="btn btn-primary">Create Room</button>
+    </div>
+
+    <!-- Step 2: Room Code + Mic -->
+    <div id="step-room" class="card hidden">
+      <div class="room-code-box">
+        <span class="label">Room Code</span>
+        <span id="room-code" class="code">——</span>
+        <button id="btn-copy" class="btn btn-sm">Copy</button>
+      </div>
+      <p class="hint">Share this code with your listeners.</p>
+
+      <div class="status-row">
+        <span class="dot" id="status-dot"></span>
+        <span id="status-text">Idle</span>
+      </div>
+
+      <div class="listener-count">
+        👥 <span id="listener-count">0</span> listener(s) connected
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-mic" class="btn btn-success">▶ Start Mic</button>
+        <button id="btn-stop" class="btn btn-danger hidden">⏹ Stop</button>
+      </div>
+    </div>
+
+    <!-- Log -->
+    <div id="log" class="log hidden"></div>
+  </div>
+
+  <script src="/static/speaker.js"></script>
+</body>
+</html>
