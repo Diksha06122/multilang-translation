@@ -1,1 +1,6 @@
-/home/diksha/Desktop/personal/multilang-translation/backend/asr/faster-whisper-base
+__pycache__/
+*.pyc
+venv/
+.env
+
+backend/asr/faster-whisper-base/
