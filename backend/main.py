@@ -1,16 +1,3 @@
-"""
-main.py — FastAPI application entry point
-
-WebSocket endpoints:
-  /ws/speaker/{room_id}          Speaker streams audio here
-  /ws/listener/{room_id}?lang=X  Listeners receive subtitles + audio here
-
-HTTP endpoints:
-  POST /room/create              Create a new room, returns room_id
-  GET  /room/{room_id}/exists    Check if room exists
-  GET  /languages                List supported languages
-"""
-
 import asyncio
 import logging
 from contextlib import asynccontextmanager

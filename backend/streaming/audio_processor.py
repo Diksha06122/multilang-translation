@@ -40,6 +40,7 @@ class AudioProcessor:
         self._audio_buffer = bytearray()
         self._chunk_count = 0
         self._pipeline_running = False   # Prevent overlapping pipeline calls
+        self._header = None              # Store the first chunk (WebM header)
 
     # ── Public API ────────────────────────────────────────────────
 
@@ -48,15 +49,25 @@ class AudioProcessor:
         Called for every audio chunk received from the speaker WebSocket.
         Appends chunk to buffer; fires pipeline when buffer is full.
         """
+        # Capture the first chunk as the header (contains WebM metadata)
+        if self._header is None:
+            self._header = chunk
+
         self._audio_buffer.extend(chunk)
         self._chunk_count += 1
 
         if self._chunk_count >= BUFFER_CHUNK_COUNT:
-            audio_snapshot = bytes(self._audio_buffer)
+            # Prepend header if it's not already at the start of this segment
+            # (The very first batch already has the header naturally)
+            payload = bytes(self._audio_buffer)
+            if self._header and not payload.startswith(self._header):
+                payload = self._header + payload
+
             self._audio_buffer = bytearray()
             self._chunk_count = 0
+            
             # Fire-and-forget; does NOT await so WebSocket stays unblocked
-            asyncio.create_task(self._run_pipeline(audio_snapshot))
+            asyncio.create_task(self._run_pipeline(payload))
 
     # ── Pipeline ──────────────────────────────────────────────────
 

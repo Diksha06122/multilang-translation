@@ -9,20 +9,20 @@ import os
 import tempfile
 import logging
 from faster_whisper import WhisperModel
-from config import WHISPER_MODEL_SIZE, WHISPER_COMPUTE_TYPE
+from config import WHISPER_MODEL_SIZE, WHISPER_COMPUTE_TYPE, WHISPER_MODEL_PATH
 
 logger = logging.getLogger(__name__)
 
 
 class WhisperEngine:
     def __init__(self, model_size: str = WHISPER_MODEL_SIZE):
-        logger.info(f"Loading Whisper model '{model_size}' (CPU / {WHISPER_COMPUTE_TYPE})…")
+        model_to_load = WHISPER_MODEL_PATH if WHISPER_MODEL_PATH and os.path.exists(WHISPER_MODEL_PATH) else model_size
+        logger.info(f"Loading Whisper model from '{model_to_load}' (CPU / {WHISPER_COMPUTE_TYPE})…")
         self.model = WhisperModel(
-            model_size,
+            model_to_load,
             device="cpu",
             compute_type=WHISPER_COMPUTE_TYPE,
         )
-        self._loop = asyncio.get_event_loop()
         logger.info("Whisper model ready.")
 
     # ── Public API ────────────────────────────────────────────────
@@ -33,7 +33,7 @@ class WhisperEngine:
         Returns {"text": "...", "language": "hi", "confidence": 0.95}
         Runs synchronous Whisper in a thread-pool so it never blocks the loop.
         """
-        return await self._loop.run_in_executor(None, self._sync_transcribe, audio_bytes)
+        return await asyncio.to_thread(self._sync_transcribe, audio_bytes)
 
     # ── Internal ──────────────────────────────────────────────────
 
