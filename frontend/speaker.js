@@ -1,8 +1,4 @@
-/**
- * speaker.js
- * Handles room creation, microphone capture via MediaRecorder,
- * and streaming binary audio chunks to the backend WebSocket.
- */
+
 
 const API_BASE = window.location.origin;
 const WS_BASE  = API_BASE.replace(/^http/, "ws");

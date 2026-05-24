@@ -1,9 +1,3 @@
-/**
- * listener.js
- * Handles room joining, subtitle display, and queued audio playback
- * of base64-encoded mp3 chunks received over WebSocket.
- */
-
 const API_BASE = window.location.origin;
 const WS_BASE  = API_BASE.replace(/^http/, "ws");
 
