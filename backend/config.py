@@ -19,7 +19,7 @@ SUPPORTED_LANGUAGES: dict[str, dict] = {
 }
 
 WHISPER_MODEL_SIZE = "base"
-WHISPER_MODEL_PATH = "asr/faster-whisper-base"
+WHISPER_MODEL_PATH = None
 
 WHISPER_COMPUTE_TYPE = "int8"          
 

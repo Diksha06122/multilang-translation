@@ -10,6 +10,7 @@
 | `hi` | Hindi    | hi-IN-SwaraNeural   |
 | `en` | English  | en-IN-NeerjaNeural  |
 | `ta` | Tamil    | ta-IN-PallaviNeural |
+| `bn` | Bengali  | bn-IN-TanishaaNeural|
 
 
 ---
@@ -28,11 +29,12 @@ sudo apt install ffmpeg
 ## Setup & Run
 
 ```bash
+# 1. Clone / extract project
 cd multilang-translation
 
 # 2. Create virtualenv (recommended)
-python -m venv venv
-source venv/bin/activate     
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
@@ -108,4 +110,31 @@ of how many listeners share that language. 10 Tamil listeners → 1 Tamil TTS ca
 | `WHISPER_MODEL_SIZE`  | `"base"` | `"tiny"` = faster, less accurate       |
 | `BUFFER_CHUNK_COUNT`  | `3`      | Lower = less latency, lower accuracy   |
 | `MAX_LISTENERS_PER_ROOM` | `50`  | Hard cap per room                      |
-| `SUPPORTED_LANGUAGES` | 3 langs  | Add/remove language + voice entries    |
+| `SUPPORTED_LANGUAGES` | 4 langs  | Add/remove language + voice entries    |
+| `WHISPER_MODEL_PATH` | `None`   | Set to a path if using a local model   |
+
+---
+
+## Project Structure
+
+```
+multilang-translation/
+├── backend/
+│   ├── main.py                  ← FastAPI app, WebSocket endpoints
+│   ├── config.py                ← Languages, model sizes, tuning knobs
+│   ├── room_manager.py          ← Room state, listener groups, broadcast
+│   ├── asr/
+│   │   └── whisper_engine.py    ← faster-whisper, CPU int8, thread-pool
+│   ├── translation/
+│   │   └── translator.py        ← deep-translator, concurrent gather
+│   ├── tts/
+│   │   └── tts_engine.py        ← edge-tts, once per language
+│   └── streaming/
+│       └── audio_processor.py   ← Pipeline orchestrator, buffering
+├── frontend/
+│   ├── speaker.html / speaker.js
+│   ├── listener.html / listener.js
+│   └── styles.css
+├── requirements.txt
+└── README.md
+```
