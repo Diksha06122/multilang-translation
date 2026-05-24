@@ -99,10 +99,6 @@ of how many listeners share that language. 10 Tamil listeners → 1 Tamil TTS ca
 
 **Translation de-duplication:** Same — one translation API call per target language.
 
-**Non-blocking pipeline:** `asyncio.create_task()` fires the pipeline without blocking  
-the WebSocket receive loop, so the speaker never stalls.
-
-
 ---
 
 ## Configuration (`backend/config.py`)
